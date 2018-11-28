@@ -49,6 +49,7 @@ def jcz_solver(j0):   # --- jz, cz solver. We solve both equations, though only 
     sol = odeint(jcz_rhs, y0, zdist, args=(pset,))
     return sol
 
+  
 def shapes(fparms):
     j0 =  fparms[0] / (iast * lt)
     res = jcz_solver(j0)
@@ -96,4 +97,3 @@ print('Residual error in total current =', Jmean - iast * lt * simps(jz, x=zdist
 # print('ch(1) =', cz[-1])
 print('The results are in the file ' + fname, ': zsegs jhexprt jhmodel chmodel' )
 np.savetxt(fname, np.transpose([zsegs, jlocal, jsegs, csegs]), fmt="%f")
-
