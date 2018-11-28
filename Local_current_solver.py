@@ -13,22 +13,22 @@ jlocal_400 = np.array([0.41035, 0.45536, 0.40354, 0.41686, 0.39470, 0.42049, 0.3
 
 nexp = 1                  # --- Working point in the arrays Jcell, Vcell, Rcell.
                           # --- nexp = 0 corresponds to Jcell = 101.28 mA/cm2, etc.
-jlocal = jlocal_200       # --- Measured local current density corresponding to nexp=0
+jlocal = jlocal_200       # --- Measured local current density corresponding to nexp
 fname = 'shapes_200.dat'  # --- File name to store the results
 
 F = 9.65e4                # --- Faraday constant
 pcell, Tcell = 1.5, 80    # --- pressure (bar), temperature C
-Db = 0.02                 # --- GDL oxygen diffusivity, cm^/s
-iast = 0.001              # --- ORR exchange curernt density, A/cm3
+Db = 0.02                 # --- GDL oxygen diffusivity, cm^2/s
+iast = 0.001              # --- ORR exchange curernt density, A/cm^3
 b = 0.03                  # --- ORR Tafel slope, V
 
-lt, lb, lam = 10e-4, 250e-4, 2.0    # --- CCL thickness, GDL thickness, oxygen flow stoi
+lt, lb, lam = 12e-4, 235e-4, 2.0    # --- CCL thickness, GDL thickness, oxygen flow stoi
 cref = (pcell - 0.4734 / 2) * 0.21 / (10 * 8.314 * (273 + Tcell))   # --- reference (inlet) oxygen conc.
                                     # --- cref corresponds to 50% humidity of the inlet air stream
 Jmean  = Jcell[nexp]
 VcellJ = Vcell[nexp]
 Rmem   = Rcell[nexp]
-Voc    = 1.1688
+Voc    = 1.1649
 J = Jmean / (iast * lt)
 Rm = iast * lt * Rmem / b
 Kp = np.exp((Voc - VcellJ) / b)
