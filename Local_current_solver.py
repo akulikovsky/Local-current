@@ -93,7 +93,7 @@ jsegs = iast * lt * np.copy(jz[5::10])    # --- model currents in the segments
 csegs = np.copy(cz[5::10])                # --- model oxygen conc. at the segments
 
 # print('Voc =', b * np.log(Kp) + Vcell[nexp] )
-print('Residual error in total current =', Jmean - iast * lt * simps(jz, x=zdist, even='first'))
+print('Residual error of the total current =', Jmean - iast * lt * simps(jz, x=zdist, even='first'))
 # print('c(1) =', cz[-1])
 print('The results are in the file ' + fname, ': zsegs j_exprt j_model c_model' )
 np.savetxt(fname, np.transpose([zsegs, jlocal, jsegs, csegs]), fmt="%f")
