@@ -36,14 +36,14 @@ Kp = np.exp((Voc - VcellJ) / b)
 jlim = 4 * F * Db * cref / (lb * iast * lt)
 zdist = np.linspace(0, 1, 101)    # --- A mesh for numerical calculation of integral.
 
-def jcz_rhs(y, z, parms):   # --- rhs calculation.  y[0] = jh(z), y[1] = ch(z)
+def jcz_rhs(y, z, parms):   # --- rhs calculation.  y[0] = j(z), y[1] = c(z)
     denj = (1 + Rm * y[0]) * np.exp(Rm * y[0]) / Kp + 1 / jlim
     rsj = - y[0] / (lam * J * denj)
     rsc = - y[0] / (lam * J)
     return [rsj, rsc]
 
 
-def jcz_solver(j0):   # --- jz, cz solver. We solve both equations, though only jz is needed.
+def jcz_solver(j0):   # --- j(z), c(z) solver. We solve both equations, though only j(z) is needed.
     pset = (j0)
     y0 = [j0, 1.]    #--- initial conditions
     sol = odeint(jcz_rhs, y0, zdist, args=(pset,))
@@ -53,7 +53,7 @@ def jcz_solver(j0):   # --- jz, cz solver. We solve both equations, though only 
 def shapes(fparms):
     j0 =  fparms[0] / (iast * lt)
     res = jcz_solver(j0)
-    return res[:,0], res[:,1]    #--- returns dimensionless jz, ch0, see normalization!
+    return res[:,0], res[:,1]    #--- returns dimensionless j(z), c(z); see normalization!
 
 
 def resid(fitparms):
@@ -92,8 +92,8 @@ zsegs = np.copy(zdist[5::10])             # --- segment locations in our experim
 jsegs = iast * lt * np.copy(jz[5::10])    # --- model currents in the segments
 csegs = np.copy(cz[5::10])                # --- model oxygen conc. at the segments
 
-print('Voc =', b * np.log(Kp) + Vcell[nexp] )
+# print('Voc =', b * np.log(Kp) + Vcell[nexp] )
 print('Residual error in total current =', Jmean - iast * lt * simps(jz, x=zdist, even='first'))
-# print('ch(1) =', cz[-1])
+# print('c(1) =', cz[-1])
 print('The results are in the file ' + fname, ': zsegs jhexprt jhmodel chmodel' )
 np.savetxt(fname, np.transpose([zsegs, jlocal, jsegs, csegs]), fmt="%f")
