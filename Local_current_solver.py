@@ -22,7 +22,7 @@ Db = 0.02                 # --- GDL oxygen diffusivity, cm^2/s
 iast = 0.001              # --- ORR exchange curernt density, A/cm^3
 b = 0.03                  # --- ORR Tafel slope, V
 
-lt, lb, lam = 12e-4, 235e-4, 2.0    # --- CCL thickness, GDL thickness, oxygen flow stoi
+lt, lb, lam = 12e-4, 125e-4, 2.0    # --- CCL thickness, GDL thickness, oxygen flow stoi
 cref = (pcell - 0.4734 / 2) * 0.21 / (10 * 8.314 * (273 + Tcell))   # --- reference (inlet) oxygen conc.
                                     # --- cref corresponds to 50% humidity of the inlet air stream
 Jmean  = Jcell[nexp]
